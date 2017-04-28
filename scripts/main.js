@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 
 /*----------  Background Soundtrack  ----------*/
 	var bg_audio = new Audio();
-		bg_audio.autoplay = true;
+		// bg_audio.autoplay = true;
 		bg_audio.volume=0.2;
 	var bgAudioFunc = function () {
 		switch (Math.round(Math.random()*4)) {
