@@ -149,11 +149,20 @@ video {
   margin-top: 50px;
   outline: none;
 }
+#dark{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(0,0,0,.5);
+}
 .bg_block {
   position: absolute;
   width: 100%;
   height: 300px;
-  background-image: url(../img/coffee_in_rain_by_kirokaze-d98qb8z.gif);
+  background-image: url(../img/backgrounds/coffee_in_rain_by_kirokaze-d98qb8z.gif);
   background-position: 0 -197px;
   -webkit-background-size: cover;
   background-size: cover;
