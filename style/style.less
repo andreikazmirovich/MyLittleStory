@@ -23,57 +23,10 @@ body{
 	font-family: "Minecraft";
 	font-size: 15px;
 }
-video{
-	position: absolute;
-	top: 0;
-	width: 100%;
-}
-#block{
-	width: 100px;
-	height: 150px;
-	margin: 0 auto;
-	margin-top: 200px;
-	position: relative;
-	img{
-		position: absolute;
-		width: 100px;
-		.keyframes(anim; {
-			from{
-				margin-top: 0;
-			}
-			to{
-				margin-top: 30px;
-			}
-		});
-		.animation(anim 1s ease-in-out infinite alternate);
-	}
-	#shadow{
-		position: absolute;
-		width: 100px;
-		height: 20px;
-		background-color: rgba(0,0,0,.1);
-		border-radius: 50%;
-		bottom: 0;
-		margin: 0 auto;
-		.keyframes(anim2; {
-			from{
-				background-color: rgba(0,0,0,.1);
-				width: 80px;
-				margin-left: 10px;
-			}
-			to{
-				background-color: rgba(0,0,0,.2);
-				width: 100px;
-				margin-left: 0px;
-			}
-		});
-		.animation(anim2 1s ease-in-out infinite alternate);
-	}
-}
 #pers_block{
 	margin: 0 auto;
 	// margin-top: 100px;
-	padding-top: 170px;
+	padding-top: 270px;
 	width: 382px;
 	z-index: 2;
 }
@@ -124,12 +77,19 @@ video{
     top: 0;
     left: 0;
     z-index: 100;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0,0,0,1);
+    color: white;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 200px;
    }
+#dark #change_time{
+	opacity: 0;
+}
 .bg_block{
 	position: absolute;
 	width: 100%;
-	height: 300px;
+	height: 400px;
 	background-image: url(../img/backgrounds/coffee_in_rain_by_kirokaze-d98qb8z.gif);
 	background-position: 0 -197px;
 	-webkit-background-size: cover;
@@ -141,7 +101,6 @@ video{
 	margin-top: 0;
 	float: left;
 }
-
 .block{
 	width: 100%;
 	height: 100px;
