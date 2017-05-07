@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+$(document).ready(function() {
 
 /*----------  Different functions  ----------*/
 
@@ -104,6 +104,53 @@ jQuery(document).ready(function() {
 			}
 		});
 
+	/*----------  Quest block function  ----------*/
+
+		var newQuest = function (questText) {
+			if($("#questTextBox" && $("#quest_att"))){
+				$("#questTextBox").remove();
+				$("#quest_att").remove();
+			}
+			sound("New Quest");
+			$("body").append('<div id="quest_att">!</div>');
+			$("body").append('<div id="questTextBox"><i class="fa fa-times" aria-hidden="true"></i>' + questText + '</div>');
+			var questAtt = $("#quest_att"),
+				curVis = true,
+				questTextBoxVis = false;
+
+			var questAttInter = setInterval(function () {
+				if (curVis == true) {
+					questAtt.css('background-color', 'rgba(249,56,56,0.6)');
+					curVis = false;
+				}
+				else{
+					questAtt.css('background-color', 'rgba(249,56,56,1)');
+					curVis = true;
+				}			
+			}, 300);
+			questAtt.click(function(e) {
+				clearInterval(questAttInter);
+				questAtt.css('background-color', 'rgba(249,56,56,0.5)');
+				questAtt.hover(function() {
+					questAtt.css('background-color', 'rgba(249,56,56,1)');
+				}, function() {
+					questAtt.css('background-color', 'rgba(249,56,56,0.5)');
+				});
+				$("#questTextBox i").click(function(e) {
+					questTextBoxVis = false;
+					$("#questTextBox").css('background-color', 'rgba(33,39,51,0)').css('top', '0').css('color', 'rgba(255,255,255,0)');
+				});
+				if(questTextBoxVis == false){
+					questTextBoxVis = true;
+					$("#questTextBox").css('background-color', 'rgba(33,39,51,1)').css('top', '50px').css('color', 'rgba(255,255,255,1)');
+				}
+				else{
+					questTextBoxVis = false;
+					$("#questTextBox").css('background-color', 'rgba(33,39,51,0)').css('top', '0').css('color', 'rgba(255,255,255,0)');
+				}
+			});
+		}	
+	
 /*----------  Main Setup  ----------*/
 
 	var mainPers = $("#pers"),
@@ -200,6 +247,9 @@ jQuery(document).ready(function() {
 			case "Mobile ringing":
 				soundAudio.src = '../music/effects/Cell phone ringing0.mp3';
 				break;
+			case "New Quest":
+				soundAudio.src = '../music/effects/new quest.wav';
+				break;
 		}
 		soundAudio.autoplay = true;
 	}
@@ -261,6 +311,7 @@ jQuery(document).ready(function() {
 	Say("So...<pause>What's your name?", 2, function () {
 		setTimeout(function () {
 			textBlock.attr('placeholder', 'Enter your name...');
+			newQuest("Добро пожаловть в игру game_name! Игра ещё находится в стадии разработки, но уже кое-что можно потестить. Приятной игры!");
 		}, 3000);
 	}, true);
 
@@ -293,12 +344,8 @@ jQuery(document).ready(function() {
 						Say("That's my city", 1);
 					});
 
-					Say("I know, today is rainy...", 2);
-					Say("But i like this weather", 3, function () {
-						emotion("Cute Laugh");
-					});
-					Say("...", 4);
-					Say("Do you want to know something about this city?", 5, function () {
+					Say("...", 2);
+					Say("Do you want to know something about this city?", 3, function () {
 						textBlock.attr('placeholder', 'Enter your answer...');
 					}, true);
 					break;
@@ -307,13 +354,14 @@ jQuery(document).ready(function() {
 					yesOrNo(answer, function () {
 						Say("Yey!<pause> Listen to me", 0);
 						Say("Necropolis is one of the last survived city at war between United Community and Cult Of Cicada", 1);
-						Say("This city live through Electrum, that we found in crater under city centre", 2);
+						Say("This city live through Electrum, that we found in crater under city centre", 3);
 
 					}, function () {
 						Say("Sure?<pause>Okay... You know better", 0);
 						Say("Maybe you know, that Necropolis is one of the last survived city at war between United Community and Cult Of Cicada", 1);
+						Say("I know, it's scary", 3);
 					});
-					Say("Anyway... I want to know something about you! Where are you from?", 3, function () {
+					Say("Anyway... I want to know something about you! Where are you from?", 4, function () {
 						textBlock.attr('placeholder', 'Enter your answer...');
 					}, true);
 					break;
@@ -361,6 +409,7 @@ jQuery(document).ready(function() {
 							}, 1500);
 							Say("Oh, you really come... It's so cool!", 2, function () {
 								$("#string").css("display","block");
+								newQuest("К сожалению пока на этом игра заканчивается, но в скором времени история продолжится. Оставайтесь с нами!");
 							});
 						}
 					}, 2000);
