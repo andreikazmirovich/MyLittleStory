@@ -96,3 +96,40 @@ body {
   margin-left: 0;
   background-color: red;
 }
+#quest_att {
+  width: 35px;
+  height: 40px;
+  background-color: #f93838;
+  line-height: 40px;
+  position: absolute;
+  top: 50px;
+  right: 150px;
+  text-align: center;
+  font-size: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+#quest_att:hover {
+  background-color: #f93838;
+}
+#questTextBox {
+  position: absolute;
+  width: 400px;
+  background-color: rgba(33, 39, 51, 0);
+  color: rgba(255, 255, 255, 0);
+  font-size: 20px;
+  line-height: 25px;
+  text-align: center;
+  padding: 35px 20px 20px 20px;
+  border-radius: 5px;
+  top: 0;
+  left: 50%;
+  margin-left: -210px;
+  transition: all .3s ease;
+}
+#questTextBox i {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
+}
