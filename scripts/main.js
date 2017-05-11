@@ -165,19 +165,34 @@ $(document).ready(function() {
 			this.img = img;
 			this.description = description;
 			return this;
+		},
+		items: [],
+		create: function (name, img, description) {
+			var obj = Object.create(Item).constructor(name, img, description);
+			Item.items[name] = obj;
+			$("#sidebar").append('<div class="item" id="' + name + '"></div>');
+			$("#sidebar #" + name).css('background-image', 'url("../img/textures/' + img + '")');
+
+			$("#sidebar #" + name).click(function(e) {
+				Item.showInfo(name);
+			});
+		},
+		delete: function (name) {
+			$("#sidebar #" + name).remove();
+			delete Item.items[name];
+		},
+		showInfo: function(name) {
+			$("#item_info").remove();
+			var curItem = Item.items[name];
+			$("body").append('<div id="item_info">'+ curItem.description +'</div>');
+			$("#item_info").css('top', '0');
+			setTimeout(function () {
+				$("#item_info").css('background-color', 'rgba(33,39,51,0)');
+				$("#item_info").css('color', 'rgba(255,255,255,0)');
+			}, 3000);
 		}
 	};
-
-	var items = [];
-	
-	var createItem = function (name, img, description) {
-		var obj = Object.create(Item).constructor(name, img, description);
-		items.push(obj);
-	}
-
-	createItem("Krone", "backpack.png", "It's old king's krone");
-	// createItem("Ring", "joystick.png", "Just gold ring");
-	// createItem("Key", "magazine.jpg", "Bronze key");
+	// Item.create("joystick", "joystick.png", "It's just gamer's joystick");
 
 /*----------  Background Soundtrack  ----------*/
 	var bg_audio = new Audio();
