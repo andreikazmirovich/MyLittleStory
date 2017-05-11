@@ -157,6 +157,28 @@ $(document).ready(function() {
 		textBlock = $("#txt"),
 		userName = "";
 
+/*----------  Items functions  ----------*/
+	
+	var Item = {
+		constructor: function (name, img, description) {
+			this.name = name;
+			this.img = img;
+			this.description = description;
+			return this;
+		}
+	};
+
+	var items = [];
+	
+	var createItem = function (name, img, description) {
+		var obj = Object.create(Item).constructor(name, img, description);
+		items.push(obj);
+	}
+
+	createItem("Krone", "backpack.png", "It's old king's krone");
+	// createItem("Ring", "joystick.png", "Just gold ring");
+	// createItem("Key", "magazine.jpg", "Bronze key");
+
 /*----------  Background Soundtrack  ----------*/
 	var bg_audio = new Audio();
 		bg_audio.autoplay = true;
@@ -306,14 +328,14 @@ $(document).ready(function() {
 
 /*----------  Story  ----------*/
 	
-	Say("Hi!<pause> My name is Ino", 0);
+	/*Say("Hi!<pause> My name is Ino", 0);
 	Say("I'm a cyborg...<pause> Was created in 2029 year", 1);
 	Say("So...<pause>What's your name?", 2, function () {
 		setTimeout(function () {
 			textBlock.attr('placeholder', 'Enter your name...');
 			newQuest("Добро пожаловть в игру game_name! Игра ещё находится в стадии разработки, но уже кое-что можно потестить. Приятной игры!");
 		}, 3000);
-	}, true);
+	}, true);*/
 
 	textBlock.keypress(function(e) {
 		if (e.keyCode == 13) {
