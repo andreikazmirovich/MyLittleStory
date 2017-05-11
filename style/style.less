@@ -147,23 +147,37 @@ body{
 }
 #sidebar{
 	background-color: rgba(33, 39, 51, .5);
-	width: 374px;
-	height: 70px;
+	width: 74px;
+	height: 339px;
 	position: absolute;
 	top: 50px;
 	left: 200px;
 	border: 2px solid #212733;
 	border-radius: 5px;
-	padding: 0 10px;
+	padding: 5px 0;
 	box-sizing: border-box;
+	overflow: hidden;
 	.item{
 		width: 60px;
 		height: 55px;
-		// background-image: url(../img/textures/joystick.png);
 		background-size: contain;
 		background-position: center;
 		background-repeat: no-repeat;
 		float: left;
 		margin: 5px;
 	}
+}
+#item_info{
+	background-color: rgba(33,39,51,1);
+	color: rgba(255,255,255,1);
+	width: 800px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	position: absolute;
+	top: -30px;
+	left: 50%;
+	margin-left: -400px;
+	transition: all .5s ease;
+	border-radius: 0 0 5px 5px;
 }
