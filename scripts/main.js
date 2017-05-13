@@ -1,4 +1,10 @@
 $(document).ready(function() {
+	
+/*----------  Main Setup  ----------*/
+
+	var mainPers = $("#pers"),
+		textBlock = $("#txt"),
+		userName = "";
 
 /*----------  Different functions  ----------*/
 
@@ -150,196 +156,228 @@ $(document).ready(function() {
 				}
 			});
 		}	
-	
-/*----------  Main Setup  ----------*/
 
-	var mainPers = $("#pers"),
-		textBlock = $("#txt"),
-		userName = "";
-
-/*----------  Items functions  ----------*/
-	
-	var Item = {
-		constructor: function (name, img, description) {
-			this.name = name;
-			this.img = img;
-			this.description = description;
-			return this;
-		},
-		items: [],
-		create: function (name, img, description) {
-			var obj = Object.create(Item).constructor(name, img, description);
-			Item.items[name] = obj;
-			$("#sidebar").append('<div class="item" id="' + name + '"></div>');
-			$("#sidebar #" + name).css('background-image', 'url("../img/textures/' + img + '")');
-
-			$("#sidebar #" + name).click(function(e) {
-				Item.showInfo(name);
-			});
-		},
-		delete: function (name) {
-			$("#sidebar #" + name).remove();
-			delete Item.items[name];
-		},
-		showInfo: function(name) {
-			$("#item_info").remove();
-			var curItem = Item.items[name];
-			$("body").append('<div id="item_info">'+ curItem.description +'</div>');
-			$("#item_info").css('top', '0');
+	/*----------  Background Soundtrack  ----------*/
+		var bg_audio = new Audio();
+			bg_audio.autoplay = true;
+			bg_audio.volume=0.1;
+		var bgAudioFunc = function () {
+			switch (Math.round(Math.random()*3)) {
+				case 0:
+					bg_audio.src = "../music/1.mp3";
+					break;
+				case 1:
+					bg_audio.src = "../music/2.mp3";
+					break;
+				case 2:
+					bg_audio.src = "../music/3.mp3";
+					break;
+				case 3:
+					bg_audio.src = "../music/4.mp3";
+					break;
+			}
 			setTimeout(function () {
-				$("#item_info").css('background-color', 'rgba(33,39,51,0)');
-				$("#item_info").css('color', 'rgba(255,255,255,0)');
-			}, 3000);
-		}
-	};
-	// Item.create("joystick", "joystick.png", "It's just gamer's joystick");
+				bgAudioFunc();
+			}, 450000);
+		};
+		bgAudioFunc();
 
-/*----------  Background Soundtrack  ----------*/
-	var bg_audio = new Audio();
-		bg_audio.autoplay = true;
-		bg_audio.volume=0.1;
-	var bgAudioFunc = function () {
-		switch (Math.round(Math.random()*3)) {
-			case 0:
-				bg_audio.src = "../music/1.mp3";
-				break;
-			case 1:
-				bg_audio.src = "../music/2.mp3";
-				break;
-			case 2:
-				bg_audio.src = "../music/3.mp3";
-				break;
-			case 3:
-				bg_audio.src = "../music/4.mp3";
-				break;
-		}
-		setTimeout(function () {
-			bgAudioFunc();
-		}, 450000);
-	};
-	bgAudioFunc();
+	/*----------  Speacking function  ----------*/
+		
+		var dialogCountC = 0,
+			dialogCount = 0;
+		var Say = function (string, times, callback, mustAnswer) {
+			setTimeout(function () {
+				var stringPos = 0,
+					stringPlace = $("#string");
 
-/*----------  Speacking function  ----------*/
-	
-	var dialogCountC = 0,
-		dialogCount = 0;
-	var Say = function (string, times, callback, mustAnswer) {
-		setTimeout(function () {
-			var stringPos = 0,
-				stringPlace = $("#string");
+				stringPlace.html("");
+				string = string.replace(/<pause>/gi, "                                        ").split("");
 
-			stringPlace.html("");
-			string = string.replace(/<pause>/gi, "                                        ").split("");
-
-			var inter = setInterval(function () {
-				if(stringPos < string.length){
-					stringPlace.html(stringPlace.html() + string[stringPos]);
-					if(string[stringPos] !== string[stringPos+1] && 
-					string[stringPos] == "." || 
-					string[stringPos] == "!" || 
-					string[stringPos] == "?"){
-						stringPlace.html(stringPlace.html() + "<br>");
+				var inter = setInterval(function () {
+					if(stringPos < string.length){
+						stringPlace.html(stringPlace.html() + string[stringPos]);
+						if(string[stringPos] !== string[stringPos+1] && 
+						string[stringPos] == "." || 
+						string[stringPos] == "!" || 
+						string[stringPos] == "?"){
+							stringPlace.html(stringPlace.html() + "<br>");
+						}
+						stringPos++;
 					}
-					stringPos++;
+					else{
+						clearInterval(inter);
+					}
+				}, 50);
+				if (mustAnswer){
+					dialogCountC++;
+					dialogCount = dialogCountC;
+				}
+				if(callback) callback();
+			}, 5000 * times);
+		}
+
+	/*----------  Moving function  ----------*/
+		var spritePos = 0;
+		setInterval(function () {
+			if(spritePos == 2240){
+				spritePos = 0;
+			}
+			else{
+				spritePos += 70;
+			}
+			mainPers.css('background-position', '-' + spritePos + 'px 0');
+		}, 100);
+
+	/*----------  Sound/Emotion function  ----------*/
+		
+		var emotion = function (emotion) {
+			var emotionAudio = new Audio();
+			switch (emotion) {
+				case "Cute Laugh":
+					emotionAudio.src = '../music/emotions/Girl Cute Laugh.mp3';
+					break;
+			}
+			emotionAudio.autoplay = true;
+		}
+
+		var sound = function (sound) {
+			var soundAudio = new Audio();
+			switch (sound) {
+				case "Mobile ringing":
+					soundAudio.src = '../music/effects/Cell phone ringing0.mp3';
+					break;
+				case "New Quest":
+					soundAudio.src = '../music/effects/new quest.wav';
+					break;
+			}
+			soundAudio.autoplay = true;
+		}
+
+	/*----------  yesOrNo Answer function  ----------*/
+
+		var yesOrNo = function (answer, ifYes, ifNo) {
+			if (answer.indexOf("yes") !== -1 ||
+				answer.indexOf("sure") !== -1 || 
+				answer.indexOf("yea") !== -1) {
+				ifYes();
+			}
+			else{
+				ifNo();
+			}
+		}
+
+	/*----------  Items functions  ----------*/
+		
+		var Item = {
+			constructor: function (name, img, description) {
+				this.name = name;
+				this.img = img;
+				this.description = description;
+				return this;
+			},
+			items: [],
+			create: function (name, img, description) {
+				var obj = Object.create(Item).constructor(name, img, description);
+				Item.items[name] = obj;
+				$("#sidebar").append('<div class="item" id="' + name + '"></div>');
+				$("#sidebar #" + name).css('background-image', 'url("../img/textures/' + img + '")');
+
+				$("body").append('<div id="item_added"><h3>'+ name.charAt(0).toUpperCase() + name.substr(1).toLowerCase() +'</h3><div id="img" style="background-image: url(\'../img/textures/'+ img +'\')"></div><span>'+ description +'</span><div class="clean"></div><div id="butt">OK</div></div>');
+				$("#item_added #butt").click(function(e) {
+					$("#item_added").css('opacity', '0');
+					setTimeout(function () {
+						$("#item_added").remove();
+					}, 1000);
+				});
+
+				$("#sidebar #" + name).click(function(e) {
+					Item.showInfo(name);
+				});
+			},
+			delete: function (name) {
+				$("#sidebar #" + name).remove();
+				delete Item.items[name];
+			},
+			showInfo: function(name) {
+				$("#item_info").remove();
+				var curItem = Item.items[name];
+				$("body").append('<div id="item_info">'+ curItem.description +'</div>');
+				$("#item_info").css('top', '0');
+				setTimeout(function () {
+					$("#item_info").css('background-color', 'rgba(33,39,51,0)');
+					$("#item_info").css('color', 'rgba(255,255,255,0)');
+				}, 3000);
+			},
+			check: function(userAnswer, trueAnswer, ifFalseArr, ifElseArr, ifTrueFunc) {
+				if(userAnswer[0] == "[" && userAnswer[userAnswer.length-1] == "]"){
+					if(userAnswer == trueAnswer){
+						if(!!Item.items[userAnswer.substr(1, userAnswer.length - 2).split(" ")[1]]){
+							ifTrueFunc();
+						}
+						else{
+							var noThingAnswerArr = ["Ам...<pause>Но у тебя же этого нету", 
+													"Как я вижу ты ещё не заполучил то что мне нужно",
+													"Боюсь без той вещи мы не сможем продолжить"];
+
+							Say(noThingAnswerArr[Math.round(Math.random() * (noThingAnswerArr.length-1))], 0);
+						}
+					}
+					else{
+						Say(ifFalseArr[Math.round(Math.random() * (ifFalseArr.length-1))], 0);
+					}
 				}
 				else{
-					clearInterval(inter);
+					Say(ifElseArr[Math.round(Math.random() * (ifElseArr.length-1))], 0);
 				}
-			}, 50);
-			if (mustAnswer){
-				dialogCountC++;
-				dialogCount = dialogCountC;
 			}
-			if(callback) callback();
-		}, 5000 * times);
-	}
-
-/*----------  Moving function  ----------*/
-	var spritePos = 0;
-	setInterval(function () {
-		if(spritePos == 2240){
-			spritePos = 0;
-		}
-		else{
-			spritePos += 70;
-		}
-		mainPers.css('background-position', '-' + spritePos + 'px 0');
-	}, 100);
-
-/*----------  Sound/Emotion function  ----------*/
-	
-	var emotion = function (emotion) {
-		var emotionAudio = new Audio();
-		switch (emotion) {
-			case "Cute Laugh":
-				emotionAudio.src = '../music/emotions/Girl Cute Laugh.mp3';
-				break;
-		}
-		emotionAudio.autoplay = true;
-	}
-
-	var sound = function (sound) {
-		var soundAudio = new Audio();
-		switch (sound) {
-			case "Mobile ringing":
-				soundAudio.src = '../music/effects/Cell phone ringing0.mp3';
-				break;
-			case "New Quest":
-				soundAudio.src = '../music/effects/new quest.wav';
-				break;
-		}
-		soundAudio.autoplay = true;
-	}
-
-/*----------  yesOrNo Answer function  ----------*/
-
-	var yesOrNo = function (answer, ifYes, ifNo) {
-		if (answer.indexOf("yes") !== -1 ||
-			answer.indexOf("sure") !== -1 || 
-			answer.indexOf("yea") !== -1) {
-			ifYes();
-		}
-		else{
-			ifNo();
-		}
-	}
-
-/*----------  Locations  ----------*/
-
-	var changeLocation = function (place) { changeLocation
-		var slider = $("#slider"),
-			w = window.innerWidth,
-			block = $("#slider .bg_block:nth-child(1)");
-			block.css('z-index', '-1');
+		};
+		// Item.create("джойстик", "joystick.png", "Это просто джойстик");
 		
-		switch (place) {
-			case "Cafe":
-				slider.append('<div class="bg_block"></div>');
-				$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/coffee_in_rain_by_kirokaze-d98qb8z.gif)');
-				break;
-			case "Night City":
-				slider.append('<div class="bg_block"></div>');
-				$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/ac9718dd35e683664f4ef0f6f6b8e36f.gif)');
-				break;
-			case "Airport":
-				slider.append('<div class="bg_block"></div>');
-				$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/tumblr_nxd0b1kGgr1tah9pwo1_1280.gif)');
-				break;
-			case "Dark Roof":
-				slider.append('<div class="bg_block"></div>');
-				$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/a9201068266093ffc045d28e4ed89b67.gif)');
-				break;
-		}
+		// Item.check("[дать ключ]",
+		// 			"[дать ключ]",
+		// 			["И что мне с этим делать?", "Нет-нет, это мне не нужно"],
+		// 			["Я не болтать сюда пришла...", "Поторопись, у меня мало времени"],
+		// 			function() {
+		// 				Say("Да! Это то что мне нужно!", 0);
+		// 			});
 
-		var slide = setInterval(function () {
-			var mt = block.css('margin-top').replace("px", "");;
-			block.css('margin-top', mt - 3 + 'px');
-			if(mt == -w){
-				clearInterval(slide);
-				block.remove();
+	/*----------  Locations  ----------*/
+
+		var changeLocation = function (place) { changeLocation
+			var slider = $("#slider"),
+				w = window.innerWidth,
+				block = $("#slider .bg_block:nth-child(1)");
+				block.css('z-index', '-1');
+			
+			switch (place) {
+				case "Cafe":
+					slider.append('<div class="bg_block"></div>');
+					$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/coffee_in_rain_by_kirokaze-d98qb8z.gif)');
+					break;
+				case "Night City":
+					slider.append('<div class="bg_block"></div>');
+					$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/ac9718dd35e683664f4ef0f6f6b8e36f.gif)');
+					break;
+				case "Airport":
+					slider.append('<div class="bg_block"></div>');
+					$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/tumblr_nxd0b1kGgr1tah9pwo1_1280.gif)');
+					break;
+				case "Dark Roof":
+					slider.append('<div class="bg_block"></div>');
+					$("#slider .bg_block:nth-child(2)").css('background-image', 'url(../img/backgrounds/a9201068266093ffc045d28e4ed89b67.gif)');
+					break;
 			}
-		}, 1);
-	}
+
+			var slide = setInterval(function () {
+				var mt = block.css('margin-top').replace("px", "");;
+				block.css('margin-top', mt - 3 + 'px');
+				if(mt == -w){
+					clearInterval(slide);
+					block.remove();
+				}
+			}, 1);
+		}
 
 /*----------  Story  ----------*/
 	
