@@ -5,12 +5,67 @@
   font-family: "Minecraft";
   src: url(../fonts/Minecraft.ttf);
 }
+@font-face {
+  font-family: "Astakhov Main";
+  src: url(../fonts/10568.ttf);
+}
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
   font-family: "Minecraft";
   font-size: 15px;
+}
+#menu_full_block {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+#menu_full_block .menu_bg_img {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  transition: opacity 1s ease;
+}
+#main_logo {
+  position: absolute;
+  font-family: 'Astakhov Main';
+  left: 50%;
+  top: 80px;
+  font-size: 90px;
+  width: 610px;
+  margin-left: -305px;
+  color: white;
+}
+#main_logo span {
+  color: #f93838;
+}
+#menu_buttons {
+  width: 300px;
+  position: absolute;
+  bottom: 100px;
+  left: 100px;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(33, 39, 51, 0.8);
+  border: 2px solid #212733;
+  border-radius: 5px;
+}
+#menu_buttons ul {
+  list-style: none;
+}
+#menu_buttons ul li {
+  cursor: pointer;
+  margin: 10px 0;
+  display: inline-block;
+}
+#menu_buttons ul li:first-child {
+  margin-bottom: 30px;
+}
+#menu_buttons ul li:hover {
+  color: #f93838;
 }
 #pers_block {
   margin: 0 auto;
