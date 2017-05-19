@@ -5,6 +5,7 @@ var mainFunc = function() {
 		$("#menu_full_block").remove();
 		$("#main_logo").remove();
 		$("#menu_buttons").remove();
+		$("#author").remove();
 
 		$("body").append('<div id="dark"></div><div id="slider"><div class="bg_block"></div></div><div id="pers_block"><div id="string"></div><div id="pers"></div><input type="text" id="txt" autocomplete="off"></div><div id="sidebar"></div>');
 
@@ -501,6 +502,7 @@ var mainFunc = function() {
 		$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ 1 +'.jpg")');
 		$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
 		$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ 2 +'.jpg")');
+		// $("#menu_full_block .menu_bg_img:last-child").css('transform', 'scale(1.2)');
 		var i = 3;
 
 		var menuBgInter = setInterval(function () {
@@ -515,7 +517,7 @@ var mainFunc = function() {
 				else{
 					i = 1;
 				}
-			}, 1000);
+			}, 2000);
 			$("#menu_buttons ul li#start_game").click(function() {
 				clearInterval(menuBgInter);
 			});
@@ -528,10 +530,13 @@ var mainFunc = function() {
 				soundAudio.autoplay = true;	
 		}, function() {});
 
-		$("#menu_buttons ul li#start_game").click(function() {
+		/*$("#menu_buttons ul li#start_game").click(function() {
 			bg_audio.pause();
 			mainFunc();
 		});
+		$("#menu_buttons ul li#exit").click(function() {
+			window.close();
+		});*/
 
 		/*----------  Fullscreen  ----------*/
 				$("html").keypress(function(e) {
