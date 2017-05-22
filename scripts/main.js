@@ -35,6 +35,7 @@ var mainFunc = function() {
 			darkToLight();
 
 			var lightToDark = function () {
+				$("body").append('<div id="dark"></div>');
 				var darkOp = 0;
 				var darkInter = setInterval(function () {
 					if(darkOp >= 1){
@@ -50,9 +51,6 @@ var mainFunc = function() {
 		/*----------  changeTime function  ----------*/
 		
 			var changeTime = function (time) {
-
-				$("body").prepend('<div id="dark"></div>');
-				$("#dark").css('background-color', 'rgba(0,0,0,0)');
 				lightToDark();
 				$("#string").css("display","none");
 				var timer = time.split(":");
@@ -252,9 +250,10 @@ var mainFunc = function() {
 		/*----------  yesOrNo Answer function  ----------*/
 
 			var yesOrNo = function (answer, ifYes, ifNo) {
-				if (answer.indexOf("yes") !== -1 ||
-					answer.indexOf("sure") !== -1 || 
-					answer.indexOf("yea") !== -1) {
+				if (answer.indexOf("да") !== -1 ||
+					answer.indexOf("конечно") !== -1 || 
+					answer.indexOf("абсолютно") !== -1 || 
+					answer.indexOf("однозначно") !== -1) {
 					ifYes();
 				}
 				else{
@@ -376,11 +375,11 @@ var mainFunc = function() {
 
 	/*----------  Story  ----------*/
 		
-		Say("Hi!<pause> My name is Ino", 0);
-		Say("I'm a cyborg...<pause> Was created in 2029 year", 1);
-		Say("So...<pause>What's your name?", 2, function () {
+		Say("Привет!<pause> Меня зовут Ино-303", 0);
+		Say("Я киборг...<pause> Была создана в 2029 году", 1);
+		Say("Так что...<pause>Как тебя зовут?", 2, function () {
 			setTimeout(function () {
-				textBlock.attr('placeholder', 'Enter your name...');
+				textBlock.attr('placeholder', 'Введите ваше имя...');
 				newQuest("Добро пожаловть в игру game_name! Игра ещё находится в стадии разработки, но уже кое-что можно потестить. Приятной игры!");
 			}, 3000);
 		}, true);
@@ -394,12 +393,12 @@ var mainFunc = function() {
 						userName = this.value;
 						dialogCount = 0;
 
-						Say("Oh...<pause>I like it!", 0, function () {
+						Say("Мм...<pause>Красивое имя!", 0, function () {
 							emotion("Cute Laugh");
 						});
-						Say(userName + ", do you know where we are?", 1, function () {
+						Say(userName + ", вы знаете где мы сейчас?", 1, function () {
 							setTimeout(function () {
-								textBlock.attr('placeholder', 'Enter your answer...');
+								textBlock.attr('placeholder', 'Введите свой ответ...');
 							}, 2000);
 						}, true);
 						break;
@@ -407,32 +406,32 @@ var mainFunc = function() {
 						dialogCount = 0;
 
 						yesOrNo(answer, function () {
-							Say("Oh...<pause>You have been here before?", 0);
-							Say("Anyway...Everything has changed", 1);
+							Say("Оу...<pause>Вы уже были тут когда-то?", 0);
+							Say("Но не суть...Всё давно изменилось", 1);
 						}, function () {
-							Say("Okey...<pause>Look! We are in the Necropolis", 0);
-							Say("That's my city", 1);
+							Say("Хорошо...<pause>Смотри! Мы в Никрополисе", 0);
+							Say("Здесь меня создали", 1);
 						});
 
 						Say("...", 2);
-						Say("Do you want to know something about this city?", 3, function () {
-							textBlock.attr('placeholder', 'Enter your answer...');
+						Say("Вы хотите кое-что узнать об этом городе?", 3, function () {
+							textBlock.attr('placeholder', 'Введите свой ответ...');
 						}, true);
 						break;
 					case 3:
 						dialogCount = 0;
 						yesOrNo(answer, function () {
-							Say("Yey!<pause> Listen to me", 0);
-							Say("Necropolis is one of the last survived city at war between United Community and Cult Of Cicada", 1);
-							Say("This city live through Electrum, that we found in crater under city centre", 3);
+							Say("Ура!<pause> Слушайте", 0);
+							Say("Никрополис - один из последних выживших городов в войне между Объединенным Сообществом и Культом Цикады", 1);
+							Say("Этот город выживает благодаря Электруму, который мы нашли в кратере под центром города", 3);
 
 						}, function () {
-							Say("Sure?<pause>Okay... You know better", 0);
-							Say("Maybe you know, that Necropolis is one of the last survived city at war between United Community and Cult Of Cicada", 1);
-							Say("I know, it's scary", 3);
+							Say("Уверены?<pause>Хорошо...Вам лучше знать", 0);
+							Say("Возможно, вы знаете, что Никрополис - один из последних переживших войну городов между Объединенным Сообществом и Культом Цикады", 1);
+							Say("Я знаю, звучит страшновато", 3);
 						});
-						Say("Anyway... I want to know something about you! Where are you from?", 4, function () {
-							textBlock.attr('placeholder', 'Enter your answer...');
+						Say("В любом случае... Я хочу узнать что-то о вас! Откуда вы?", 4, function () {
+							textBlock.attr('placeholder', 'Введите свой ответ...');
 						}, true);
 						break;
 					case 4:
@@ -440,28 +439,28 @@ var mainFunc = function() {
 						var func = function () {
 							this.value = "";
 							if(answer !== ""){
-								if(answer.indexOf("necropolis") !== -1 ||
-								answer.indexOf("this") !== -1||
-								answer.indexOf("there") !== -1||
-								answer.indexOf("here") !== -1||
-								answer.indexOf("too") !== -1){
-									Say("Don't lie to me", 0);
-									Say("Before I met you, I checked your pass, and I'm sure that you are not from here", 1);
-									Say("So?Where are you from?", 2, function () {
+								if(answer.indexOf("Некрополис") !== -1 ||
+								answer.indexOf("этот") !== -1||
+								answer.indexOf("отсюда") !== -1||
+								answer.indexOf("тут") !== -1||
+								answer.indexOf("тоже") !== -1){
+									Say("Не врите!", 0);
+									Say("Прежде чем я встретила вас, я проверила ваш пропуск, и я уверена, что вы не отсюда", 1);
+									Say("Ну так что?Откуда вы?", 2, function () {
 										dialogCount = dialogCountC;
 									});
 								}
 								else{
-									Say("Cool!It's so far from here!", 0, function () {
+									Say("Круто!Никогда не слышала об этом месте!", 0, function () {
 										sound("Mobile ringing");
 									});
-									Say(userName + ", wait please", 0.7);
-									Say("/ Hello?<pause>Uhmm...<pause>Okey /", 1.5);
-									Say("/ Wait for me /", 3);
-									Say(userName + ", I'm so sorry, but I must go now", 4);
-									Say("I really want to meet you again", 5);
-									Say("Tonight I'm going to be on the roof of this cafe. I'm waiting for you there. Bye", 6, function () {
-										textBlock.attr('placeholder', "Say 'Bye'...");
+									Say(userName + ", подождите, пожалуйста", 0.7);
+									Say("/ Я слушаю?<pause>Емм...<pause>Хорошо /", 1.5);
+									Say("/ Жди меня /", 3);
+									Say(userName + ", мне очень жаль, но я должна идти", 4);
+									Say("Я действительно хочу встретиться с вами снова", 5);
+									Say("Сегодня я буду на крыше этого кафе. Буду ждать вас там. Надеюсь вы придете. До свидания", 6, function () {
+										textBlock.attr('placeholder', "Попрощайтесь...");
 									}, true);
 								}
 							}
@@ -472,12 +471,17 @@ var mainFunc = function() {
 						dialogCount = 0;
 						this.value = "";
 						setTimeout(function () {
-							if(answer.indexOf("bye") !== -1){
+							if(answer.indexOf("пока") !== -1 ||
+								answer.indexOf("до свидания") !== -1 ||
+								answer.indexOf("удачи") !== -1 ||
+								answer.indexOf("до встречи") !== -1 ||
+								answer.indexOf("до завтра") !== -1 ||
+								answer.indexOf("прощай") !== -1){
 								changeTime("00:00");
 								setTimeout(function () {
 									changeLocation("Night City");
 								}, 1500);
-								Say("Oh, you really come... It's so cool!", 2, function () {
+								Say("Ох, вы правда здесь... Это очень здорово!", 2, function () {
 									$("#string").css("display","block");
 									newQuest("К сожалению пока на этом игра заканчивается, но в скором времени история продолжится. Оставайтесь с нами!");
 								});
@@ -494,6 +498,8 @@ var mainFunc = function() {
 /*----------  Main menu  ----------*/
 
 	$(document).ready(function() {
+	/*----------  Menu functions  ----------*/
+	
 		var bg_audio = new Audio();
 			bg_audio.autoplay = true;
 			bg_audio.volume=0.1;
@@ -508,20 +514,23 @@ var mainFunc = function() {
 		var menuBgInter = setInterval(function () {
 			$("#menu_full_block .menu_bg_img:last-child").css('opacity', '0');
 			setTimeout(function () {
-				if(i <= 13){
+				if(i < 13){
 					$("#menu_full_block .menu_bg_img:last-child").remove();
 					$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
 					$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ i +'.jpg")');
 					i++;
 				}
 				else{
+					$("#menu_full_block .menu_bg_img:last-child").remove();
+					$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
+					$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ i +'.jpg")');
 					i = 1;
 				}
 			}, 2000);
 			$("#menu_buttons ul li#start_game").click(function() {
 				clearInterval(menuBgInter);
 			});
-		}, 10000);
+		}, 5000);
 
 		$("#menu_buttons ul li").hover(function() {
 			var soundAudio = new Audio();
@@ -530,25 +539,67 @@ var mainFunc = function() {
 				soundAudio.autoplay = true;	
 		}, function() {});
 
-		/*$("#menu_buttons ul li#start_game").click(function() {
+		$("#menu_buttons ul li#start_game").click(function() {
+			$("body").append('<div id="dark" style="background-color: rgba(0,0,0,0)"></div>');
+				var darkOp = 0;
+				var darkInter = setInterval(function () {
+					if(darkOp >= 1){
+						clearInterval(darkInter);
+					}
+					else{
+						$("#dark").css('background-color', 'rgba(0,0,0,' + darkOp +')');
+						darkOp += 0.1;
+					}
+				}, 50);
+			setTimeout(function () {
+				textBetweenScenes("2059 год...");
+				textBetweenScenes("Спустя 30 лет после техногенного катаклизма", 3, function () {
+					setTimeout(function () {
+						$("#dark").remove();
+						mainFunc();
+					}, 12000);
+				});
+			}, 2000);
 			bg_audio.pause();
-			mainFunc();
 		});
 		$("#menu_buttons ul li#exit").click(function() {
 			window.close();
-		});*/
+		});
 
-		/*----------  Fullscreen  ----------*/
-				$("html").keypress(function(e) {
-					if(e.keyCode == 61){
-						var elem = document.getElementById("html");
-						if (elem.requestFullscreen) {
-						  elem.requestFullscreen();
-						} else if (elem.mozRequestFullScreen) {
-						  elem.mozRequestFullScreen();
-						} else if (elem.webkitRequestFullscreen) {
-						  elem.webkitRequestFullscreen();
+	/*----------  Fullscreen  ----------*/
+		$("html").keypress(function(e) {
+			if(e.keyCode == 61){
+				var elem = document.getElementById("html");
+				if (elem.requestFullscreen) {
+						elem.requestFullscreen();
+				} else if (elem.mozRequestFullScreen) {
+						elem.mozRequestFullScreen();
+				} else if (elem.webkitRequestFullscreen) {
+						elem.webkitRequestFullscreen();
+				}
+			}
+		});
+
+	/*----------  Text between scenes function  ----------*/
+		var textBetweenScenes = function (text, timeOut, callback) {
+			setTimeout(function () {
+				$("#dark #text").html("");
+				$("#dark").remove();
+				$("body").append('<div id="dark"><div id="text"></div></div>');
+				var i = 0;
+				setInterval(function () {
+					if(i < text.length){
+						$("#dark #text").html($("#dark #text").text() + text[i]);
+						if(text[i] != " "){
+							var soundAudio = new Audio();
+							soundAudio.src = '../music/effects/typewriter.wav';
+							soundAudio.autoplay = true;
 						}
+						i++;
 					}
-				});
+				}, 150);
+				if(callback) callback();
+			}, timeOut * 1000);
+		}
+
 	});

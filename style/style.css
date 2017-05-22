@@ -138,9 +138,20 @@ body {
   font-size: 50px;
   text-align: center;
   padding-top: 200px;
+  transition: opacity 1s linear;
 }
 #dark #change_time {
   opacity: 0;
+}
+#dark #text {
+  font-size: 30px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+#dark #text i {
+  display: block;
+  clear: both;
+  margin-top: 50px;
 }
 .bg_block {
   position: absolute;
