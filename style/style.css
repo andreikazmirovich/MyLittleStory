@@ -77,8 +77,51 @@ body {
   right: 50px;
   color: #858585;
 }
-#author span {
+#author a {
   color: white;
+  text-decoration: none;
+}
+#author a:hover {
+  color: #f93838;
+}
+#options_window {
+  background-color: black;
+  width: 354px;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  margin-left: -180px;
+  background-color: rgba(33, 39, 51, 0.9);
+  border: 2px solid #212733;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+}
+#options_window #options_window_exit {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  cursor: pointer;
+}
+#options_window ul {
+  float: left;
+  list-style: none;
+}
+#options_window ul li {
+  line-height: 40px;
+}
+#options_window ul li:first-child {
+  margin-top: 30px;
+}
+#options_window #values {
+  margin-left: 40px;
+}
+#options_window #values li {
+  text-align: right;
+}
+#options_window #values li i {
+  width: 40px;
+  cursor: pointer;
 }
 #pers_block {
   margin: 0 auto;

@@ -87,8 +87,51 @@ body{
 	bottom: 100px;
 	right: 50px;
 	color: #858585;
-	span{
+	a{
 		color: white;
+		text-decoration: none;
+		&:hover{
+			color: rgba(249,56,56,1);
+		}
+	}
+}
+#options_window{
+	background-color: black;
+	width: 354px;
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	margin-left: -180px;
+	background-color: rgba(33, 39, 51, .9);
+	border: 2px solid #212733;
+	border-radius: 5px;
+	color: white;
+	font-size: 20px;
+	#options_window_exit{
+		position: absolute;
+		top: 5px;
+		right: 8px;
+		cursor: pointer;
+	}
+	ul{
+		float: left;
+		list-style: none;
+		li{
+			line-height: 40px;
+			&:first-child{
+				margin-top: 30px;
+			}
+		}
+	}
+	#values{
+		margin-left: 40px;
+		li{
+			text-align: right;
+			i{
+				width: 40px;
+				cursor: pointer;
+			}
+		}
 	}
 }
 #pers_block{
