@@ -508,7 +508,7 @@ var mainFunc = function() {
 		$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ 1 +'.jpg")');
 		$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
 		$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ 2 +'.jpg")');
-		// $("#menu_full_block .menu_bg_img:last-child").css('transform', 'scale(1.2)');
+
 		var i = 3;
 
 		var menuBgInter = setInterval(function () {
@@ -530,7 +530,7 @@ var mainFunc = function() {
 			$("#menu_buttons ul li#start_game").click(function() {
 				clearInterval(menuBgInter);
 			});
-		}, 5000);
+		}, 10000);
 
 		$("#menu_buttons ul li").hover(function() {
 			var soundAudio = new Audio();
@@ -539,46 +539,53 @@ var mainFunc = function() {
 				soundAudio.autoplay = true;	
 		}, function() {});
 
-		$("#menu_buttons ul li#start_game").click(function() {
-			$("body").append('<div id="dark" style="background-color: rgba(0,0,0,0)"></div>');
-				var darkOp = 0;
-				var darkInter = setInterval(function () {
-					if(darkOp >= 1){
-						clearInterval(darkInter);
-					}
-					else{
-						$("#dark").css('background-color', 'rgba(0,0,0,' + darkOp +')');
-						darkOp += 0.1;
-					}
-				}, 50);
-			setTimeout(function () {
-				textBetweenScenes("2059 год...");
-				textBetweenScenes("Спустя 30 лет после техногенного катаклизма", 3, function () {
-					setTimeout(function () {
-						$("#dark").remove();
-						mainFunc();
-					}, 12000);
-				});
-			}, 2000);
-			bg_audio.pause();
-		});
-		$("#menu_buttons ul li#exit").click(function() {
-			window.close();
-		});
+		/*----------  start butt  ----------*/
+		
+			$("#menu_buttons ul li#start_game").click(function() {
+				$("body").append('<div id="dark" style="background-color: rgba(0,0,0,0)"></div>');
+					var darkOp = 0;
+					var darkInter = setInterval(function () {
+						if(darkOp >= 1){
+							clearInterval(darkInter);
+						}
+						else{
+							$("#dark").css('background-color', 'rgba(0,0,0,' + darkOp +')');
+							darkOp += 0.1;
+						}
+					}, 50);
+				setTimeout(function () {
+					textBetweenScenes("2059 год...");
+					textBetweenScenes("Спустя 30 лет после техногенного катаклизма", 3, function () {
+						setTimeout(function () {
+							$("#dark").remove();
+							mainFunc();
+						}, 12000);
+					});
+				}, 2000);
+				bg_audio.pause();
+			});
 
-	/*----------  Fullscreen  ----------*/
-		$("html").keypress(function(e) {
-			if(e.keyCode == 61){
-				var elem = document.getElementById("html");
-				if (elem.requestFullscreen) {
-						elem.requestFullscreen();
-				} else if (elem.mozRequestFullScreen) {
-						elem.mozRequestFullScreen();
-				} else if (elem.webkitRequestFullscreen) {
-						elem.webkitRequestFullscreen();
-				}
-			}
-		});
+		/*----------  options butt  ----------*/
+		
+			$("#menu_buttons ul #options").click(function() {
+				if (!!$("#options_window") === true) $("#options_window").remove();
+					$("body").append('<div id="options_window"><i id="options_window_exit" class="fa fa-times" aria-hidden="true"></i><ul><li><span>Volume:</span></li></ul><ul id="values"><li><i class="fa fa-minus" aria-hidden="true"></i><i class="fa fa-plus" aria-hidden="true"></i></li></ul></div>')
+					$("#options_window #options_window_exit").click(function() {
+						$("#options_window").remove();
+					});
+					$("#options_window ul#values li .fa-plus").click(function() {
+						if(bg_audio.volume < 0.9) bg_audio.volume += 0.1;
+					});
+					$("#options_window ul#values li .fa-minus").click(function() {
+						if(bg_audio.volume > 0.1) bg_audio.volume -= 0.1;
+					});
+			});
+
+		/*----------  exit butt  ----------*/
+		
+			$("#menu_buttons ul li#exit").click(function() {
+				window.close();
+			});
 
 	/*----------  Text between scenes function  ----------*/
 		var textBetweenScenes = function (text, timeOut, callback) {
@@ -597,7 +604,7 @@ var mainFunc = function() {
 						}
 						i++;
 					}
-				}, 150);
+				}, 130);
 				if(callback) callback();
 			}, timeOut * 1000);
 		}
