@@ -27,10 +27,7 @@ body {
   background-position: center;
   background-size: cover;
   position: absolute;
-  transition: opacity 2s, transform 12s linear;
-}
-#menu_full_block .menu_bg_img:last-child {
-  transform: scale(1.2);
+  transition: opacity 3s, transform 11s linear;
 }
 #main_logo {
   position: absolute;
