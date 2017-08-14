@@ -375,21 +375,20 @@ var mainFunc = function() {
 
 	/*----------  Story  ----------*/
 		
-		Say("Привет!<pause> Меня зовут Ино-303", 0);
-		Say("Я киборг...<pause> Была создана в 2029 году", 1);
-		Say("Так что...<pause>Как тебя зовут?", 2, function () {
+		/*Say("Привет!<pause> Меня зовут Ино-303", 0);
+		Say("Я киборг...<pause> Была создана в 2029 году", 1);*/
+		Say("Так что...<pause>Как тебя зовут?", 0, function () {
 			setTimeout(function () {
 				textBlock.attr('placeholder', 'Введите ваше имя...');
 				newQuest("Добро пожаловть в игру game_name! Игра ещё находится в стадии разработки, но уже кое-что можно потестить. Приятной игры!");
 			}, 3000);
 		}, true);
-
 		textBlock.keypress(function(e) {
 			if (e.keyCode == 13) {
 				var answer = this.value.toLowerCase();
 				textBlock.attr('placeholder', '');
 				switch (dialogCount) {
-					case 1:
+					case 11:
 						userName = this.value;
 						dialogCount = 0;
 
@@ -467,7 +466,7 @@ var mainFunc = function() {
 						};
 						func();
 						break;
-					case 5:
+					case 1:
 						dialogCount = 0;
 						this.value = "";
 						setTimeout(function () {
@@ -483,7 +482,10 @@ var mainFunc = function() {
 								}, 1500);
 								Say("Ох, вы правда здесь... Это очень здорово!", 2, function () {
 									$("#string").css("display","block");
-									newQuest("К сожалению пока на этом игра заканчивается, но в скором времени история продолжится. Оставайтесь с нами!");
+									// newQuest("К сожалению пока на этом игра заканчивается, но в скором времени история продолжится. Оставайтесь с нами!");
+								});
+								Say("Возьми...Скоро тебе это понадобится, если хочешь узнать больше", 3, function () {
+									Item.create("ID-карта", "id-card.png", "Карта доступа тайного общества");
 								});
 							}
 						}, 2000);
@@ -495,38 +497,37 @@ var mainFunc = function() {
 
 };
 
+// mainFunc(); // ВИДАЛИТИ
+
 /*----------  Main menu  ----------*/
 
 	$(document).ready(function() {
 	/*----------  Menu functions  ----------*/
 	
-		var bg_audio = new Audio();
+		/*var bg_audio = new Audio();
 			bg_audio.autoplay = true;
 			bg_audio.volume=0.1;
-			bg_audio.src = "../music/menu_1.mp3";
+			bg_audio.src = "../music/menu_1.mp3";*/
 
-		$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ 1 +'.jpg")');
 		$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
+		$("#menu_full_block .menu_bg_img").css('background-image', 'url("../img/backgrounds/menu/'+ 1 +'.jpg")').before('<div class="menu_bg_img"></div>');
 		$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ 2 +'.jpg")');
 
-		var i = 3;
+		setTimeout(function () {
+			$("#menu_full_block .menu_bg_img:nth-child(2)").css('transform', 'scale(1.2)');
+		}, 100);
+
+		var i = 10;
 
 		var menuBgInter = setInterval(function () {
-			$("#menu_full_block .menu_bg_img:last-child").css('opacity', '0');
+			$("#menu_full_block .menu_bg_img:first-child").css('transform', 'scale(1.2)');
+            $("#menu_full_block .menu_bg_img:nth-child(2)").css('opacity', '0');
 			setTimeout(function () {
-				if(i < 13){
-					$("#menu_full_block .menu_bg_img:last-child").remove();
-					$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
-					$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ i +'.jpg")');
-					i++;
-				}
-				else{
-					$("#menu_full_block .menu_bg_img:last-child").remove();
-					$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
-					$("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ i +'.jpg")');
-					i = 1;
-				}
-			}, 2000);
+                $("#menu_full_block .menu_bg_img:nth-child(2)").remove();
+                $("#menu_full_block .menu_bg_img").before('<div class="menu_bg_img"></div>');
+                i < 13 ? i++ : i = 1;
+                $("#menu_full_block .menu_bg_img:first-child").css('background-image', 'url("../img/backgrounds/menu/'+ i +'.jpg")');
+            }, 3000);
 			$("#menu_buttons ul li#start_game").click(function() {
 				clearInterval(menuBgInter);
 			});
