@@ -326,7 +326,7 @@ var mainFunc = function() {
 					}
 				}
 			};
-			// Item.create("джойстик", "joystick.png", "Это просто джойстик");
+			Item.create("джойстик", "joystick.png", "Это просто джойстик");
 			
 			// Item.check("[дать ключ]",
 			// 			"[дать ключ]",
@@ -504,10 +504,10 @@ var mainFunc = function() {
 	$(document).ready(function() {
 	/*----------  Menu functions  ----------*/
 	
-		/*var bg_audio = new Audio();
+		var bg_audio = new Audio();
 			bg_audio.autoplay = true;
 			bg_audio.volume=0.1;
-			bg_audio.src = "../music/menu_1.mp3";*/
+			bg_audio.src = "../music/menu_1.mp3";
 
 		$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
 		$("#menu_full_block .menu_bg_img").css('background-image', 'url("../img/backgrounds/menu/'+ 1 +'.jpg")').before('<div class="menu_bg_img"></div>');
@@ -531,7 +531,7 @@ var mainFunc = function() {
 			$("#menu_buttons ul li#start_game").click(function() {
 				clearInterval(menuBgInter);
 			});
-		}, 10000);
+		}, 15000);
 
 		$("#menu_buttons ul li").hover(function() {
 			var soundAudio = new Audio();
