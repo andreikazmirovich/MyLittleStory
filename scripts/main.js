@@ -7,7 +7,13 @@ var mainFunc = function() {
 		$("#menu_buttons").remove();
 		$("#author").remove();
 
-		$("body").append('<div id="dark"></div><div id="slider"><div class="bg_block"></div></div><div id="pers_block"><div id="string"></div><div id="pers"></div><input type="text" id="txt" autocomplete="off"></div><div id="sidebar"></div>');
+		$("body").append('<div id="dark"></div>');
+		$("body").append('<div id="slider"><div class="bg_block"></div></div>');
+		$("body").append('<div id="pers_block"><div id="string"></div><div id="pers"></div><input type="text" id="txt" autocomplete="off"></div>');
+		$("body").append('<div id="sidebar"></div>');
+		$("body").append('<i class="fa fa-cog" aria-hidden="true"></i>');
+		$("body").append('<div id="side_menu"><ul><li>Главное меню</li><li id="side_options">Настройки</li><li id="side_exit">Выйти</li></ul><i class="fa fa-times" aria-hidden="true"></i></div>');
+		// $("#side_menu").css('top', '-3px');
 
 	/*----------  Main Setup  ----------*/
 
@@ -16,6 +22,43 @@ var mainFunc = function() {
 			userName = "";
 
 	/*----------  Different functions  ----------*/
+
+		/*----------  InGame menu functions  ----------*/
+		
+			$('i.fa-cog').click(function(e) {
+				$(this).css('display', 'none');
+				$("#side_menu").css('top', '-3px');
+			});
+
+			$('#side_menu i.fa-times').click(function(e) {
+				$('i.fa-cog').css('display', 'inline-block');
+				$("#side_menu").css('top', '-163px');
+			});
+
+			$('#side_menu ul #side_options').click(function() {
+				if (!!$("#options_window") === true) $("#options_window").remove();
+					$("body").append('<div id="options_window"><i id="options_window_exit" class="fa fa-times" aria-hidden="true"></i><ul><li><span>Volume:</span></li></ul><ul id="values"><li><i class="fa fa-minus" aria-hidden="true"></i><i class="fa fa-plus" aria-hidden="true"></i></li></ul></div>')
+					$("#options_window #options_window_exit").click(function() {
+						$("#options_window").remove();
+					});
+					$("#options_window ul#values li .fa-plus").click(function() {
+						if(bg_audio.volume < 0.9) bg_audio.volume += 0.1;
+					});
+					$("#options_window ul#values li .fa-minus").click(function() {
+						if(bg_audio.volume > 0.2) bg_audio.volume -= 0.1;
+					});
+			});
+
+			$('#side_menu ul #side_exit').click(function(e) {
+				if (!!$("#exit_acception") === true) $("#exit_acception").remove();
+					$("body").append('<div id="exit_acception"><span>Вы уверены?</span><div id="buttons"><button id="yes">Да</button><button id="no">Нет</button></div></div>');
+					$("#exit_acception #buttons #yes").click(function(e) {
+						window.close();
+					});
+					$("#exit_acception #buttons #no").click(function(e) {
+						$("#exit_acception").remove();
+					});
+			});
 
 		/*----------  darkToLight/lightToDark functions  ----------*/
 
@@ -326,7 +369,7 @@ var mainFunc = function() {
 					}
 				}
 			};
-			Item.create("джойстик", "joystick.png", "Это просто джойстик");
+			// Item.create("джойстик", "joystick.png", "Это просто джойстик");
 			
 			// Item.check("[дать ключ]",
 			// 			"[дать ключ]",
@@ -375,9 +418,9 @@ var mainFunc = function() {
 
 	/*----------  Story  ----------*/
 		
-		/*Say("Привет!<pause> Меня зовут Ино-303", 0);
-		Say("Я киборг...<pause> Была создана в 2029 году", 1);*/
-		Say("Так что...<pause>Как тебя зовут?", 0, function () {
+		Say("Привет!<pause> Меня зовут Ино-303", 0);
+		Say("Я киборг...<pause> Была создана в 2029 году", 1);
+		Say("Так что...<pause>Как тебя зовут?", 2, function () {
 			setTimeout(function () {
 				textBlock.attr('placeholder', 'Введите ваше имя...');
 				newQuest("Добро пожаловть в игру game_name! Игра ещё находится в стадии разработки, но уже кое-что можно потестить. Приятной игры!");
@@ -388,7 +431,7 @@ var mainFunc = function() {
 				var answer = this.value.toLowerCase();
 				textBlock.attr('placeholder', '');
 				switch (dialogCount) {
-					case 11:
+					case 1:
 						userName = this.value;
 						dialogCount = 0;
 
@@ -466,7 +509,7 @@ var mainFunc = function() {
 						};
 						func();
 						break;
-					case 1:
+					case 5:
 						dialogCount = 0;
 						this.value = "";
 						setTimeout(function () {
@@ -482,10 +525,10 @@ var mainFunc = function() {
 								}, 1500);
 								Say("Ох, вы правда здесь... Это очень здорово!", 2, function () {
 									$("#string").css("display","block");
-									// newQuest("К сожалению пока на этом игра заканчивается, но в скором времени история продолжится. Оставайтесь с нами!");
 								});
 								Say("Возьми...Скоро тебе это понадобится, если хочешь узнать больше", 3, function () {
 									Item.create("ID-карта", "id-card.png", "Карта доступа тайного общества");
+									newQuest("К сожалению пока на этом игра заканчивается, но в скором времени история продолжится. Оставайтесь с нами!");
 								});
 							}
 						}, 2000);
@@ -497,7 +540,7 @@ var mainFunc = function() {
 
 };
 
-// mainFunc(); // ВИДАЛИТИ
+mainFunc(); // ВИДАЛИТИ
 
 /*----------  Main menu  ----------*/
 
@@ -507,7 +550,7 @@ var mainFunc = function() {
 		var bg_audio = new Audio();
 			bg_audio.autoplay = true;
 			bg_audio.volume=0.1;
-			bg_audio.src = "../music/menu_1.mp3";
+			// bg_audio.src = "../music/menu_1.mp3";
 
 		$("#menu_full_block").prepend('<div class="menu_bg_img"></div>');
 		$("#menu_full_block .menu_bg_img").css('background-image', 'url("../img/backgrounds/menu/'+ 1 +'.jpg")').before('<div class="menu_bg_img"></div>');
